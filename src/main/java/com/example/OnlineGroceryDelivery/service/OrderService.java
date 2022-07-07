@@ -20,9 +20,8 @@ public interface OrderService {
 
 	List<Order> getOrderByOverallTotal(String overallTotal);
 
-	
 	Order getOrderByProductCount(long productCount);
 
 	List<Order> getOrderByStatus(String status);
 
-}
+	}

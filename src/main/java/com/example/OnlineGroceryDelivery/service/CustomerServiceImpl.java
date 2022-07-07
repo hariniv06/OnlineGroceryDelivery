@@ -5,15 +5,14 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import com.example.OnlineGroceryDelivery.entity.Customer;
 import com.example.OnlineGroceryDelivery.exception.AadharNumberNotMatchedException;
 import com.example.OnlineGroceryDelivery.exception.GivenIdNotFoundException;
 import com.example.OnlineGroceryDelivery.exception.NoRecordFoundException;
-import com.example.OnlineGroceryDelivery.exception.ResourceNotFoundException;
+import com.example.OnlineGroceryDelivery.exception.RecordAlreadyExistException;
 import com.example.OnlineGroceryDelivery.repository.CustomerRepository;
+
 @Service
 public class CustomerServiceImpl implements CustomerService{
 
@@ -30,7 +29,11 @@ public class CustomerServiceImpl implements CustomerService{
 	@Override
 	public Customer saveCustomer(Customer customer) {
 		// TODO Auto-generated method stub
+		Optional<Customer> cus=customerrepository.findById(customer.getCustId());
+		if(!cus.isPresent())
 		return customerrepository.save(customer);
+		else
+			throw new RecordAlreadyExistException();
 	}
 	
 
@@ -70,8 +73,9 @@ public class CustomerServiceImpl implements CustomerService{
 		// TODO Auto-generated method stub
 		Customer cust=new Customer();
 		cust=customerrepository.findById(id).orElseThrow(
-		()-> new ResourceNotFoundException("Customer","Id",id));
+		()-> new NoRecordFoundException());
 		
+		cust.setCustId(customer.getCustId());
 		cust.setCustomerName(customer.getCustomerName());
 		cust.setSurName(customer.getSurName());
 		cust.setEmail(customer.getEmail());
@@ -87,11 +91,12 @@ public class CustomerServiceImpl implements CustomerService{
 		// TODO Auto-generated method stub
 		Customer customer=new Customer();
 		customer =customerrepository.findById(id).orElseThrow(
-		()-> new ResourceNotFoundException("Customer","Id",id));
+		()-> new NoRecordFoundException());
 		
 		customerrepository.deleteById(id);
 		return "Record is deleted successfully";
 	}
+
 	@Override
 	public List<Customer> getCustomerByCustomerName(String customerName) {
 		// TODO Auto-generated method stub
@@ -122,9 +127,7 @@ public class CustomerServiceImpl implements CustomerService{
 			throw new AadharNumberNotMatchedException();
 		}
 	}
-
 	
-
 	
 	
 }

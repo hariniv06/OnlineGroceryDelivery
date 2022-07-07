@@ -7,9 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.OnlineGroceryDelivery.entity.Product;
+import com.example.OnlineGroceryDelivery.exception.GivenIdNotFoundException;
 import com.example.OnlineGroceryDelivery.exception.NoProductFoundException;
 import com.example.OnlineGroceryDelivery.exception.NoRecordFoundException;
-import com.example.OnlineGroceryDelivery.exception.ResourceNotFoundException;
+import com.example.OnlineGroceryDelivery.exception.RecordAlreadyExistException;
 import com.example.OnlineGroceryDelivery.repository.ProductRepository;
 
 @Service
@@ -27,9 +28,11 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public Product saveProduct(Product product) {
 		// TODO Auto-generated method stub
+		Optional<Product> prod=productrepository.findById(product.getProductId());
+		if(!prod.isPresent())
 		return productrepository.save(product);
-
-		
+		else
+			throw new RecordAlreadyExistException();
 	}
 
 	@Override
@@ -43,7 +46,7 @@ public class ProductServiceImpl implements ProductService{
 		}
 		
 		else {
-			throw new NoProductFoundException();
+			throw new GivenIdNotFoundException();
 		}
 		}
 
@@ -68,15 +71,17 @@ public class ProductServiceImpl implements ProductService{
 		
 		Product prod=new Product ();
 		prod=productrepository.findById(productId).orElseThrow (
-			()-> new ResourceNotFoundException("Product" , "productId",productId));
+			()-> new NoRecordFoundException());
 		
 		prod.setProductId(product.getProductId());
 		prod.setProductName(product.getProductName());
+		prod.setProductCode(product.getProductCode());
 		prod.setProductCategory(product.getProductCategory());
 		prod.setProductPrice(product.getProductPrice());
 		prod.setQuantity_of_Product(product.getQuantity_of_Product());
+		prod.setProductDescription(product.getProductDescription());
 		
-
+        productrepository.save(prod);
 		return prod;
 	}
 
@@ -88,7 +93,7 @@ public class ProductServiceImpl implements ProductService{
 		Product product = new Product();
 		
 		product=productrepository.findById(productId).orElseThrow(
-				()-> new ResourceNotFoundException("Product" ,"productId" ,productId));
+				()-> new NoProductFoundException());
 
 		
 		
@@ -96,7 +101,6 @@ public class ProductServiceImpl implements ProductService{
 		return "Record is Deleted Successfully";
 
 	}
-
 	@Override
 	public List<Product> getProductByProductCategry(String productCategory) {
 		// TODO Auto-generated method stub
@@ -121,3 +125,4 @@ public class ProductServiceImpl implements ProductService{
          return productrepository.getProductByProductName(productName);
 	}
 }
+

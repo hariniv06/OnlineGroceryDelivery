@@ -6,8 +6,6 @@ import com.example.OnlineGroceryDelivery.entity.Product;
 
 public interface ProductService {
 
-	
-
 	List<Product> getProductList();
 
 	Product getProductById(long productId);
@@ -16,17 +14,18 @@ public interface ProductService {
 
 	String deleteProduct(long productId);
 
-	List<Product> getProductByProductName(String productName);
-
+	
 	Product saveProduct(Product product);
 
-	List<Product> getProductByProductCategry(String productCategory);
+	List<Product> getProductByProductName(String productName);
 
+	List<Product> getProductByProductCategry(String productCategory);
 
 	Product getProductByProductCode(String productCode);
 
 	Product getProductByProductPrice(long productPrice);
 
+	
 
 
 	
@@ -34,3 +33,6 @@ public interface ProductService {
 	
 
 }
+
+	
+

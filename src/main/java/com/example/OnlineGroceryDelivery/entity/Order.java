@@ -1,9 +1,7 @@
 package com.example.OnlineGroceryDelivery.entity;
 
-
-
-
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -14,38 +12,51 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.Range;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@Entity(name="orderTbl")
+   @Entity
+   @Table(name="OrderTbl")
+  
+   public class Order  implements Serializable{
+   @Id
+   @GeneratedValue(generator="seq3",strategy=GenerationType.AUTO)
+   @SequenceGenerator(name="seq3",initialValue=5000)
 
-public class Order  implements Serializable{
-
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	
-	private long orderId;
-	private String orderTrackingNumber;
-	@Column(nullable=false)
+    
+    private long orderId;
+   
+    private String orderTrackingNumber;
+    
+    @Column(nullable=false)
 	@NotNull
 	private String overallTotal;
-	@Column(nullable=false)
+	
+    @Column(nullable=false)
 	@NotNull
 	@NotBlank(message="Payment Mode is Mandatory")
-	@Size(min=6,max=29,message="Payment Mode must be between 6 and 29")
+	@Size(min=6,max=29)
 	private String paymentMode;
+    
+   
 	private long productCount;
-	
+	@Column(nullable=false)
+	@NotNull
 	private String status;
+	
 	@Transient
 	private String orderPattern;
-	private String dateCreated;
-	private String dateUpdated;
-	
+	private Date dateCreated;
+	private Date dateUpdated;
+   
 	@ManyToOne
 	@JoinColumn(name="custId")
 	@JsonIgnoreProperties("order")
@@ -54,7 +65,6 @@ public class Order  implements Serializable{
 	@ManyToMany
 	@JsonIgnoreProperties("order")
 	private List<Product>product;
-
 	
 			
 	public Customer getCustomer() {
@@ -87,10 +97,10 @@ public class Order  implements Serializable{
 	public String getStatus() {
 		return status;
 	}
-	public String getDateCreated() {
+	public Date getDateCreated() {
 		return dateCreated;
 	}
-	public String getDateUpdated() {
+	public Date getDateUpdated() {
 		return dateUpdated;
 	}
 	public void setOrderId(long orderId) {
@@ -111,18 +121,31 @@ public class Order  implements Serializable{
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public void setDateCreated(String dateCreated) {
+	public void setDateCreated(Date dateCreated) {
 		this.dateCreated = dateCreated;
 	}
-	public void setDateUpdated(String dateUpdated) {
+	public void setDateUpdated(Date dateUpdated) {
 		this.dateUpdated = dateUpdated;
 	}
 	public Order() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+		
+		
+	
+	public Order(long orderId, @NotNull String overallTotal,
+			@NotNull @NotBlank(message = "Payment Mode is Mandatory") @Size(min = 6, max = 29) String paymentMode) {
+		super();
+		this.orderId = orderId;
+		this.overallTotal = overallTotal;
+		this.paymentMode = paymentMode;
+	}
+	
 	public Order(long orderId, String orderTrackingNumber, String overallTotal, String paymentMode, long productCount,
-			String status, String dateCreated, String dateUpdated) {
+			String status) {
 		super();
 		this.orderId = orderId;
 		this.orderTrackingNumber = orderTrackingNumber;
@@ -130,12 +153,10 @@ public class Order  implements Serializable{
 		this.paymentMode = paymentMode;
 		this.productCount = productCount;
 		this.status = status;
-		this.dateCreated = dateCreated;
-		this.dateUpdated = dateUpdated;
 	}
 	
 	public Order(long orderId, String orderTrackingNumber, String overallTotal, String paymentMode, long productCount,
-			String status, String dateCreated, String dateUpdated, Customer customer, List<Product> product) {
+			String status, Date dateCreated, Date dateUpdated, Customer customer, List<Product> product) {
 		super();
 		this.orderId = orderId;
 		this.orderTrackingNumber = orderTrackingNumber;
@@ -157,5 +178,5 @@ public class Order  implements Serializable{
 	}
 	
 }
-
-	
+ 
+    

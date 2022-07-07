@@ -51,7 +51,7 @@ public class ProductController {
 		
 	}
 	@PutMapping("/{id}")
-	public Product updateProduct(@PathVariable("id")long id ,@RequestBody Product product) {
+	public Product updateProduct(@PathVariable("id")long id ,@Valid @RequestBody Product product) {
 		return productservice.updateProduct(id,product);
 		
 	}
@@ -77,12 +77,5 @@ public class ProductController {
 	@GetMapping("/GetByProductPrice/{productPrice}")
 	public Product getProductByProductPrice(@PathVariable("productPrice")long productPrice) {
 		return productservice.getProductByProductPrice(productPrice);
-		
+	}		
 }
-
-
-}	
-		
-	
-
-

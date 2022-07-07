@@ -9,33 +9,33 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
-
 import com.example.OnlineGroceryDelivery.entity.Customer;
 
-    @Repository
+    
      public interface CustomerRepository extends JpaRepository<Customer,Long>{
 
-    	@Query("select c from customerTbl c where c.customerName =:customerName")
 
-    	List<Customer> getCustomerByCustomerName(@Param("customerName")String customerName);
+	  
 
-
-
-    	@Query("select c from customerTbl c where c.surName =:surName")
-	    List<Customer> getCustomerBySurName(String surName);
-
-	
-
-    	@Query("select c from customerTbl c where c.email =:email")
-	    List<Customer> getCustomerByEmail(String email);
+    	 @Query("select c from CustomerTbl c where c.customerName =:customerName")
+    	 List<Customer> getCustomerByCustomerName(@Param("customerName")String customerName);
 
 
-	    Optional<Customer> findByEmail(String string);
 
-	
+     	@Query("select c from CustomerTbl c where c.surName =:surName")
+ 	    List<Customer> getCustomerBySurName(@Param("surName")String surName);
 
-	    Optional<Customer> findByAadharNumber(long aadharNumber);
+ 	
+
+     	@Query("select c from CustomerTbl c where c.email =:email")
+ 	    List<Customer> getCustomerByEmail(@Param ("email")String email);
+
+
+ 	    Optional<Customer> findByEmail(String string);
+
+ 	
+
+ 	    Optional<Customer> findByAadharNumber(long aadharNumber);
 
 
 
@@ -45,3 +45,12 @@ import com.example.OnlineGroceryDelivery.entity.Customer;
 	
 
 }
+	  
+
+
+	
+
+
+	
+
+

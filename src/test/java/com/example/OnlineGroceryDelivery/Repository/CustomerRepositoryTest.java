@@ -19,14 +19,14 @@ import com.example.OnlineGroceryDelivery.repository.CustomerRepository;
 @Rollback(false)
 
 public class CustomerRepositoryTest {
-	
+
 	@Autowired
-	private CustomerRepository customerRepository;
+	private CustomerRepository customerrepository;
 	
 	@Test
 	public void saveCustomerTest() {
 		
-		Customer customer =customerRepository.save(new Customer(1L, "Tiya","D", "tiya@gmail.com",98765,"76543"));
+		Customer customer =customerrepository.save(new Customer(17L, "Riya","N", "riya@gmail.com","EQ89",7888885));
 	     
 		
 		Assertions.assertThat(customer.getCustId()).isGreaterThan(0);
@@ -35,15 +35,15 @@ public class CustomerRepositoryTest {
 	@Test
 	public void getCustomerTest() {
 		
-		Customer customer =customerRepository.findById(1L).get();
+		Customer customer =customerrepository.findById(17L).get();
 		
-		Assertions.assertThat(customer.getCustId()).isEqualTo(1L);
+		Assertions.assertThat(customer.getCustId()).isEqualTo(17L);
 	}
 	
 	@Test
 	public void getCustomerList() {
 		
-		List<Customer> customer =customerRepository.findAll();
+		List<Customer> customer =customerrepository.findAll();
 		
 		Assertions.assertThat(customer.size()).isGreaterThan(0);
 	}
@@ -51,25 +51,25 @@ public class CustomerRepositoryTest {
 	@Test
 	public void updateCustomerTest() {
 		
-		Customer customer =customerRepository.findById(1L).get();
+		Customer customer =customerrepository.findById(17L).get();
 		
-		customer.setEmail("dtiya@gmail.com");
+		customer.setEmail("nriya@gmail.com");
 		
-		Customer updated = customerRepository.save(customer);
+		Customer updated = customerrepository.save(customer);
 		
-		Assertions.assertThat(updated.getEmail()).isEqualTo("dtiya@gmail.com");
+		Assertions.assertThat(updated.getEmail()).isEqualTo("nriya@gmail.com");
 	}
 	
 	@Test
 	public void deleteCustomerTest() {
 		
-		Customer cust =customerRepository.findById(2L).get();
+		Customer cust =customerrepository.findById(62L).get();
 		
-		customerRepository.delete(cust);
+		customerrepository.delete(cust);
 		
 		Customer customer=null;
 		
-		Optional<Customer> cust1 =customerRepository.findByEmail("riya@gmail.com");
+		Optional<Customer> cust1 =customerrepository.findByEmail("nehaa@gmail.com");
 		
 		if(cust1.isPresent()) {
 			customer = cust1.get();

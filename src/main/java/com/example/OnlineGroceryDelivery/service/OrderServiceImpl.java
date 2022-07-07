@@ -10,7 +10,7 @@ import com.example.OnlineGroceryDelivery.entity.Order;
 import com.example.OnlineGroceryDelivery.exception.GivenIdNotFoundException;
 import com.example.OnlineGroceryDelivery.exception.NoRecordFoundException;
 import com.example.OnlineGroceryDelivery.exception.OrderNotFoundException;
-import com.example.OnlineGroceryDelivery.exception.ResourceNotFoundException;
+import com.example.OnlineGroceryDelivery.exception.RecordAlreadyExistException;
 import com.example.OnlineGroceryDelivery.repository.OrderRepository;
 
 @Service
@@ -30,9 +30,14 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public Order saveOrder(Order order) {
 		// TODO Auto-generated method stub
+		Optional<Order> or=orderrepository.findById(order.getOrderId());
+		if(!or.isPresent())
 		return orderrepository.save(order);
+		else
+			throw new RecordAlreadyExistException();
+
+		
 	}
-	
 
 	@Override
 	public List<Order> getOrderList() {
@@ -60,7 +65,7 @@ public class OrderServiceImpl implements OrderService {
 		return order.get();
 	}
 		else {
-			throw new OrderNotFoundException();
+			throw new GivenIdNotFoundException();
 		}
 	}
 	@Override
@@ -68,8 +73,9 @@ public class OrderServiceImpl implements OrderService {
 		// TODO Auto-generated method stub
 		Order ord=new Order();
 		ord=orderrepository.findById(id).orElseThrow(
-		()-> new ResourceNotFoundException("Order","Id",id));
+		()-> new NoRecordFoundException());
 		
+		ord.setOrderId(order.getOrderId());
 		ord.setOrderTrackingNumber(order.getOrderTrackingNumber());
 		ord.setOverallTotal(order.getOverallTotal());
 		ord.setPaymentMode(order.getPaymentMode());
@@ -89,7 +95,7 @@ public class OrderServiceImpl implements OrderService {
 		// TODO Auto-generated method stub
 		Order order=new Order();
 		order =orderrepository.findById(id).orElseThrow(
-		()-> new ResourceNotFoundException("Order","Id",id));
+		()-> new OrderNotFoundException());
 		
 		orderrepository.deleteById(id);
 		return "Record is deleted successfully";
@@ -120,3 +126,8 @@ public class OrderServiceImpl implements OrderService {
 		return orderrepository.getOrderByStatus(status);
 	}
 }
+	
+		
+
+
+	

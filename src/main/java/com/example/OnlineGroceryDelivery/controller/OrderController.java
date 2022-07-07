@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.OnlineGroceryDelivery.entity.Order;
 import com.example.OnlineGroceryDelivery.service.OrderService;
 
-
 @RestController
 @RequestMapping("/api/order")
 
@@ -35,7 +34,7 @@ public class OrderController {
 	}
 	
 	@PostMapping
-	  public ResponseEntity<Order> saveOrder( @Valid @RequestBody Order order) {
+	  public ResponseEntity<Order> saveOrder(@Valid @RequestBody Order order) {
 	  return new ResponseEntity<Order>(orderservice.saveOrder(order),HttpStatus.CREATED);
 	}
 	
@@ -52,7 +51,7 @@ public class OrderController {
 		
 	}
 	@PutMapping("/{id}")
-	public Order updateOrder(@PathVariable("id")long id ,@RequestBody Order order) {
+	public Order updateOrder(@PathVariable("id")long id ,@Valid @RequestBody Order order) {
 		return orderservice.updateOrder(id,order);
 		
 	}
@@ -83,7 +82,5 @@ public class OrderController {
 	public List <Order> getOrderByStatus(@PathVariable("status")String status) {
 		return orderservice.getOrderByStatus(status);
 		
-	
-	}	
-		
+}
 }

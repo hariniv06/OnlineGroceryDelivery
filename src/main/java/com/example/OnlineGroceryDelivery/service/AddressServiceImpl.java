@@ -1,20 +1,19 @@
 package com.example.OnlineGroceryDelivery.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Service;
 
 import com.example.OnlineGroceryDelivery.entity.Address;
-import com.example.OnlineGroceryDelivery.exception.GivenIdNotFoundException;
 import com.example.OnlineGroceryDelivery.exception.AddressNotFoundException;
+import com.example.OnlineGroceryDelivery.exception.GivenIdNotFoundException;
 import com.example.OnlineGroceryDelivery.exception.NoRecordFoundException;
-import com.example.OnlineGroceryDelivery.exception.ResourceNotFoundException;
+import com.example.OnlineGroceryDelivery.exception.RecordAlreadyExistException;
 import com.example.OnlineGroceryDelivery.repository.AddressRepository;
-
-
 
 
 @Service
@@ -31,20 +30,23 @@ public class AddressServiceImpl implements AddressService {
 	    this.addressrepository = addressrepository;
 	}
 	
-
 	@Override
-	public Address saveEmployee(Address address) {
-		
+	public Address saveAddress(Address address) {
+		// TODO Auto-generated method stub
+		Optional<Address> add=addressrepository.findById(address.getId());
+		if(!add.isPresent())
 		return addressrepository.save(address);
+		else
+			throw new RecordAlreadyExistException();
 	}
-
+	
 	@Override
 	public List<Address> getAddressList() {
 		// TODO Auto-generated method stub
 		List<Address>addresses=addressrepository.findAll();
 		
 		if (addresses.isEmpty()) {
-			throw new NoRecordFoundException();
+			throw new GivenIdNotFoundException();
 			
 		}
 		
@@ -63,7 +65,7 @@ public class AddressServiceImpl implements AddressService {
 		return address.get();
 	}
 		else {
-			throw new AddressNotFoundException();
+			throw new NoRecordFoundException();
 
 	}
 
@@ -73,8 +75,8 @@ public class AddressServiceImpl implements AddressService {
 		// TODO Auto-generated method stub
 		Address adrs=new Address();
 		adrs=addressrepository.findById(id).orElseThrow(
-		()-> new ResourceNotFoundException("Address","Id",id));
-		
+		()-> new NoRecordFoundException());
+	    adrs.setId(address.getId());
 	    adrs.setHouseNo(address.getHouseNo());
 	    adrs.setStreetName(address.getStreetName());
 	    adrs.setCity(address.getCity());
@@ -91,12 +93,11 @@ public class AddressServiceImpl implements AddressService {
 		// TODO Auto-generated method stub
 		Address address=new Address();
 		address =addressrepository.findById(id).orElseThrow(
-		()-> new ResourceNotFoundException("Address","Id",id));
+		()-> new AddressNotFoundException());
 		
 		addressrepository.deleteById(id);
 		return "Record is deleted successfully";
 	}
-
 
 	@Override
 	public Address getAddressByStreetName(String streetName) {
@@ -107,16 +108,25 @@ public class AddressServiceImpl implements AddressService {
 	@Override
 	public List<Address> getAddressByCity(String city) {
 		// TODO Auto-generated method stub
-		return addressrepository.getAddressByCity(city); 
+		return addressrepository.getAddressByCity(city);
 	}
 
-	
-	
-	
-}
+	@Override
+	public List<Address> getAddressByPinCode(long pincode) {
+		// TODO Auto-generated method stub
+		return addressrepository.getAddressByPinCode(pincode);
+	}
+	@Override
+	public Map<Object, Object> getAddressGroupByCity() {
+				List<Object[]> objects =  addressrepository.getAddressGroupByCity();
+				
+				Map<Object, Object> map = new HashMap<>();
+				
+				for(Object[] obj : objects) {
+					map.put(obj[0], obj[1]);
+				}
+				return map;
+			}
 
-
-
-	
-
-
+		
+	}

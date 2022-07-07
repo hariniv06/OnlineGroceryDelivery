@@ -21,12 +21,12 @@ import com.example.OnlineGroceryDelivery.repository.ProductRepository;
 public class ProductRepositoryTest {
 	
 	@Autowired
-	private ProductRepository productRepository;
+	private ProductRepository productrepository;
 	
 	@Test
 	public void saveProductTest() {
 		
-		Product product =productRepository.save(new Product(17L,"Carrot","Rs13","Vegetables",350,"3","GoodForHealth"));
+		Product product =productrepository.save(new Product(1000L,"Betroot","VV90","Vegetables",350,"3","GoodForHealth"));
 		
 		Assertions.assertThat(product.getProductId()).isGreaterThan(0);
 	}
@@ -34,15 +34,15 @@ public class ProductRepositoryTest {
 	@Test
 	public void getProductTest() {
 		
-		Product product =productRepository.findById(17L).get();
+		Product product =productrepository.findById(1000L).get();
 		
-		Assertions.assertThat(product.getProductId()).isEqualTo(17L);
+		Assertions.assertThat(product.getProductId()).isEqualTo(1000L);
 	}
 	
 	@Test
 	public void getProductList() {
 		
-		List<Product> product =productRepository.findAll();
+		List<Product> product =productrepository.findAll();
 		
 		Assertions.assertThat(product.size()).isGreaterThan(0);
 	}
@@ -50,25 +50,25 @@ public class ProductRepositoryTest {
 	@Test
 	public void updateProductTest() {
 		
-		Product product =productRepository.findById(17L).get();
+		Product product =productrepository.findById(1000L).get();
 		
-		product.setProductName("Betroot");
+		product.setProductName("Carrot");
 		
-		Product updated = productRepository.save(product);
+		Product updated = productrepository.save(product);
 		
-		Assertions.assertThat(updated.getProductName()).isEqualTo("Betroot");
+		Assertions.assertThat(updated.getProductName()).isEqualTo("Carrot");
 	}
 	
 	@Test
 	public void deleteProductTest() {
 		
-		Product prd =productRepository.findById(16L).get();
+		Product prd =productrepository.findById(1101L).get();
 		
-		productRepository.delete(prd);
+		productrepository.delete(prd);
 		
 		Product product=null;
 		
-		Optional<Product> prd1 =productRepository.findByProductName("Betroot");
+		Optional<Product> prd1 =productrepository.findByProductName("RiceFlour");
 		
 		if(prd1. isPresent()){
 			product = prd1.get();
@@ -78,9 +78,6 @@ public class ProductRepositoryTest {
 		
 	}
 	
-	
-
-
 }
 
 

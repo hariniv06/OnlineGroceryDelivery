@@ -7,22 +7,30 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.validation.constraints.Size;
 
-@Entity(name="addressTbl")
+import org.hibernate.validator.constraints.Range;
 
-public class Address {
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+   @Entity
+   @Table(name="AddressTbl")
+   
+   
+   public class Address {
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	    
+
+   @Id
+   @GeneratedValue(generator="seq1",strategy=GenerationType.AUTO)
+   @SequenceGenerator(name="seq1",initialValue=100)
+	 
 	
-	private long id;
+    private long id;
 	private long houseNo;
 	
 	@Column(nullable=false)
@@ -35,18 +43,21 @@ public class Address {
 	@NotNull
 	private String city;
 	
+	
 	private String state;
 	
 	@Transient
 	private String country;
 	
-	
+    @Range(min=1,max=6)
 	private long pincode;
 	
 	@ManyToOne
-	@JoinColumn(name="CustId")
+	@JoinColumn(name="custId")
 	@JsonIgnoreProperties("address")
     private Customer customer;
+	
+	
 			
 	public Customer getCustomer() {
 		return customer;
@@ -119,10 +130,17 @@ public class Address {
 		this.pincode = pincode;
 		this.customer = customer;
 	}
+	
+	
+	public Address(long id, long houseNo, @NotNull String city) {
+		super();
+		this.id = id;
+		this.houseNo = houseNo;
+		this.city = city;
+	}
 	@Override
 	public String toString() {
 		return "Address [id=" + id + ", houseNo=" + houseNo + ", streetName=" + streetName + ", city=" + city
 				+ ", state=" + state + ", pincode=" + pincode + ", customer=" + customer + "]";
 	}
 }
-	

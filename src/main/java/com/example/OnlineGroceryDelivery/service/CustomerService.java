@@ -6,7 +6,6 @@ import com.example.OnlineGroceryDelivery.entity.Customer;
 
 public interface CustomerService {
 
-
 	 Customer saveCustomer(Customer customer);
 
 	 List<Customer> getCustomerList();
@@ -17,18 +16,11 @@ public interface CustomerService {
 
 	 String deleteCustomer(long id);
 
-	 List<Customer> getCustomerByCustomerName(String customerName);
+	List<Customer> getCustomerByCustomerName(String customerName);
 
-	 List<Customer> getCustomerBySurName(String surName);
+	List<Customer> getCustomerBySurName(String surName);
 
-	 List<Customer> getCustomerByEmail(String email);
+	List<Customer> getCustomerByEmail(String email);
 
-
-	 Customer getCustomerByAadharNumber(long aadharNumber);
-
-
-
-	
-
-
+	Customer getCustomerByAadharNumber(long aadharNumber);
 }

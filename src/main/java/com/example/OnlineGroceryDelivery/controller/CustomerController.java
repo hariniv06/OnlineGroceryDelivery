@@ -33,7 +33,7 @@ public class CustomerController {
 	}
 	
 	@PostMapping
-	  public ResponseEntity<Customer> saveCustomer( @Valid @RequestBody Customer customer) {
+	  public ResponseEntity<Customer> saveCustomer(@Valid @RequestBody Customer customer) {
  	  return new ResponseEntity<Customer>(customerservice.saveCustomer(customer),HttpStatus.CREATED);
 	}
 	
@@ -50,7 +50,7 @@ public class CustomerController {
 		
 	}
 	@PutMapping("/{id}")
-	public Customer updateCustomer(@PathVariable("id")long id ,@RequestBody Customer customer) {
+	public Customer updateCustomer(@PathVariable("id")long id ,@Valid @RequestBody Customer customer) {
 		return customerservice.updateCustomer(id,customer);
 		
 	}
@@ -59,7 +59,6 @@ public class CustomerController {
 		return new ResponseEntity<String>(customerservice.deleteCustomer(id),HttpStatus.OK);
 	
 	}
-   
 	@GetMapping("/GetByCustomerName/{customerName}")
 	public List<Customer> getCustomerByCustomerName(@PathVariable("customerName")String customerName) {
 		return customerservice.getCustomerByCustomerName(customerName);

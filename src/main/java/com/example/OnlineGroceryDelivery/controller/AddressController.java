@@ -1,6 +1,7 @@
 package com.example.OnlineGroceryDelivery.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -33,8 +34,8 @@ public class AddressController {
 		this.addressservice = addressservice;
 	}
 	@PostMapping
-	  public ResponseEntity<Address> saveEmployee( @Valid @RequestBody Address address) {
-   	 return new ResponseEntity<Address>(addressservice.saveEmployee(address),HttpStatus.CREATED);
+	  public ResponseEntity<Address> saveEmployee(@Valid @RequestBody Address address) {
+   	 return new ResponseEntity<Address>(addressservice.saveAddress(address),HttpStatus.CREATED);
 	}
 	
 
@@ -50,7 +51,7 @@ public class AddressController {
 		
 	}
 	@PutMapping("/{id}")
-	public Address updateAddress(@PathVariable("id")long id ,@RequestBody Address address) {
+	public Address updateAddress(@PathVariable("id")long id ,@Valid @RequestBody Address address) {
 		return addressservice.updateAddress(id,address);
 		
 	}
@@ -59,7 +60,6 @@ public class AddressController {
 		return new ResponseEntity<String>(addressservice.deleteAddress(id),HttpStatus.OK);
 		
 	}
-	
 	@GetMapping("GetByStreetName/{streetName}")
 	public Address getAddressByStreetName(@PathVariable("streetName")String streetName) {
 		return addressservice.getAddressByStreetName(streetName);
@@ -72,7 +72,16 @@ public class AddressController {
 		
 		
 }	
+	@GetMapping("GetByPinCode/{pincode}")
+	public List <Address> getAddressByPinCode(@PathVariable("pincode")long pincode) {
+		return addressservice.getAddressByPinCode(pincode);
+		
 	
-}		
+}
+	@GetMapping("/GetAddressGroupByCity")
+	public ResponseEntity<Map<Object , Object>> getAddressGroupByCity () {
+		return new ResponseEntity<Map<Object , Object>>(addressservice.getAddressGroupByCity(), HttpStatus.OK);
+	}
+	}
 	
-
+		

@@ -21,14 +21,14 @@ import com.example.OnlineGroceryDelivery.repository.OrderRepository;
 public class OrderRepositoryTest {
 
 	@Autowired
-	private OrderRepository orderRepository;
+	private OrderRepository orderrepository;
 	
 	@Test
 	public void saveOrderTest() {
 		
 
 		
-		Order order =orderRepository.save(new Order(22L,"IN7654", "2500","PayPal", 4, "OrderPlaced","2022-01-30","2022-03-29"));
+		Order order =orderrepository.save(new Order(5000L,"Wq34","456","PayPal",9,"OrderRecieved"));
 		
 		
 		Assertions.assertThat(order.getOrderId()).isGreaterThan(0);
@@ -38,15 +38,15 @@ public class OrderRepositoryTest {
 	@Test
      public void getOrderTest() {
 		
-		Order order =orderRepository.findById(22L).get();
+		Order order =orderrepository.findById(5000L).get();
 		
-		Assertions.assertThat(order.getOrderId()).isEqualTo(22L);
+		Assertions.assertThat(order.getOrderId()).isEqualTo(5000L);
 	}
 	
 	@Test
 	public void getOrderList() {
 		
-	List<Order> order =orderRepository.findAll();
+	List<Order> order =orderrepository.findAll();
 		
 		Assertions.assertThat(order.size()).isGreaterThan(0);
 	}
@@ -54,23 +54,23 @@ public class OrderRepositoryTest {
 	@Test
 	public void updateOrderTest() {
 		
-		Order order =orderRepository.findById(22L).get();
-		order.setStatus("OrderRecieved");
+		Order order =orderrepository.findById(5004L).get();
+		order.setStatus("OrderInTransitToDelivery");
 
-       Order updated = orderRepository.save(order);
+       Order updated = orderrepository.save(order);
 
-       Assertions.assertThat(updated.getStatus()).isEqualTo("OrderRecieved");
+       Assertions.assertThat(updated.getStatus()).isEqualTo("OrderInTransitToDelivery");
 }
 
 	@Test
 	public void deleteOrderTest() {
 		
-		Order ord =orderRepository.findById(26L).get();
-		orderRepository.delete(ord);
+		Order ord =orderrepository.findById(5007L).get();
+		orderrepository.delete(ord);
 
         Order order=null;
 
-        Optional<Order> ord1 =orderRepository.findByStatus("OrderInTransit");
+        Optional<Order> ord1 =orderrepository.findByStatus("OrderDelivered");
 
        if(ord1. isPresent()){
 	   order = ord1.get();
@@ -84,8 +84,4 @@ public class OrderRepositoryTest {
 
 
 }
-
-
-
-
 
