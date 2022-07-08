@@ -1,6 +1,8 @@
 package com.example.OnlineGroceryDelivery.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -127,7 +129,21 @@ public class CustomerServiceImpl implements CustomerService{
 			throw new AadharNumberNotMatchedException();
 		}
 	}
-	
-	
-	
-}
+
+	@Override
+	public Map<Object, Object> getCustomerGroupByCustomerName() {
+		// TODO Auto-generated method stub
+		
+					List<Object[]> objects =  customerrepository.getCustomerGroupByCustomerName();
+					
+					Map<Object, Object> map = new HashMap<>();
+					
+					for(Object[] obj : objects) {
+						map.put(obj[0], obj[1]);
+					}
+					return map;
+				}
+
+			
+		}
+

@@ -125,7 +125,7 @@ public class OrderServiceTests {
 		public void givenIdToDeleteThenShouldDeleteOrderOfThatId() {
 			when(orderRepository.findById(order1.getOrderId())).thenReturn(Optional.ofNullable(order1));
 			
-	        assertThat(orderService.deleteOrder(order1.getOrderId())).isEqualTo("Record is Deleted Successfully");
+	        assertThat(orderService.deleteOrder(order1.getOrderId())).isEqualTo("Record is deleted successfully");
 		}
 		
 		

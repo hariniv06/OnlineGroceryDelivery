@@ -1,6 +1,7 @@
 package com.example.OnlineGroceryDelivery.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.example.OnlineGroceryDelivery.entity.Product;
 
@@ -24,6 +25,8 @@ public interface ProductService {
 	Product getProductByProductCode(String productCode);
 
 	Product getProductByProductPrice(long productPrice);
+
+	Map<Object, Object> getProductGroupByProductCategory();
 
 	
 

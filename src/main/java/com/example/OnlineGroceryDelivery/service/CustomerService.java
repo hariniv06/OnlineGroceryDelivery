@@ -1,6 +1,7 @@
 package com.example.OnlineGroceryDelivery.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.example.OnlineGroceryDelivery.entity.Customer;
 
@@ -23,4 +24,8 @@ public interface CustomerService {
 	List<Customer> getCustomerByEmail(String email);
 
 	Customer getCustomerByAadharNumber(long aadharNumber);
+
+	Map<Object, Object> getCustomerGroupByCustomerName();
+
+	
 }

@@ -32,7 +32,7 @@ import org.mockito.Mock;
 public class CustomerServiceTests {
 	
 	@Mock
-	private CustomerRepository customerRepository;
+	private CustomerRepository customerrepository;
 	
 	
 	@Autowired
@@ -70,7 +70,7 @@ public class CustomerServiceTests {
 		@Test
 		public void givenCustomerToAddShouldReturnAddedCustomer() {
 			
-			when(customerRepository.save(customer1)).thenReturn(customer1);
+			when(customerrepository.save(customer1)).thenReturn(customer1);
 			
 			// when - behaviour that we are going test
 			
@@ -87,7 +87,7 @@ public class CustomerServiceTests {
 	    	
 	    	Customer customer = new Customer(300,"Ananya" , "ananya@gmail.com");
 	    	
-	        when(customerRepository.findById(customer.getCustId()))
+	        when(customerrepository.findById(customer.getCustId()))
 	                .thenReturn(Optional.of(customer));
 	        
 	        
@@ -102,9 +102,9 @@ public class CustomerServiceTests {
 		@Test
 		public void givenGetAllCustomersShouldReturnListOfAllCustomers()throws NoRecordFoundException {
 			
-			customerRepository.saveAll(customerList);
+			customerrepository.saveAll(customerList);
 			
-			when(customerRepository.findAll()).thenReturn(customerList);
+			when(customerrepository.findAll()).thenReturn(customerList);
 			
 			List<Customer> actualCustomerList = customerService.getCustomerList();
 			
@@ -114,7 +114,7 @@ public class CustomerServiceTests {
 		@Test
 		public void givenIdThenShouldReturnEmployeeOfThatId() throws GivenIdNotFoundException{
 			
-			when(customerRepository.findById(300L)).thenReturn(Optional.ofNullable(customer1));
+			when(customerrepository.findById(300L)).thenReturn(Optional.ofNullable(customer1));
 			assertThat(customerService.getCustomerById(customer1.getCustId())).isEqualTo(customer1);
 			
 		}
@@ -122,9 +122,9 @@ public class CustomerServiceTests {
 		
 		@Test
 		public void givenIdToDeleteThenShouldDeleteCustomerOfThatId() {
-			when(customerRepository.findById(customer1.getCustId())).thenReturn(Optional.ofNullable(customer1));
+			when(customerrepository.findById(customer1.getCustId())).thenReturn(Optional.ofNullable(customer1));
 			
-	        assertThat(customerService.deleteCustomer(customer1.getCustId())).isEqualTo("Record is Deleted Successfully");
+	        assertThat(customerService.deleteCustomer(customer1.getCustId())).isEqualTo("Record is deleted successfully");
 		}
 		
 		
@@ -143,8 +143,8 @@ public class CustomerServiceTests {
 	    @Test
 	    public void givenCustomerObject_whenUpdateCustomer_thenReturnUpdatedCustomer(){
 	    	long custId = 300L;
-	        when(customerRepository.save(customer1)).thenReturn(customer1);
-	        when(customerRepository.findById(custId)).thenReturn(Optional.of(customer1));
+	        when(customerrepository.save(customer1)).thenReturn(customer1);
+	        when(customerrepository.findById(custId)).thenReturn(Optional.of(customer1));
 	        customer1.setEmail("Anandhi@gmail.com");
 	        customer1.setCustomerName("Asha");
 	        Customer updatedCustomer = customerService.updateCustomer(custId, customer1);

@@ -30,6 +30,11 @@ public interface ProductRepository extends JpaRepository<Product,Long>{
     @Query("select p from ProductTbl p where p.productCode =:productCode")
 	Product getProductByProductCode(@Param("productCode")String productCode);
 
+    @Query ("select p.productCategory , count(p.id) from ProductTbl p group by p.productCategory")
+	List<Object[]> getProductGroupByProductCategory();
+
+
+	
 
 }
 	  

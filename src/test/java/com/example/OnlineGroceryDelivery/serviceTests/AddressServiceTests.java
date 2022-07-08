@@ -125,7 +125,7 @@ public class AddressServiceTests {
 		public void givenIdToDeleteThenShouldDeleteAddressOfThatId() {
 			when(addressrepository.findById(address1.getId())).thenReturn(Optional.ofNullable(address1));
 			
-	        assertThat(addressservice.deleteAddress(address1.getId())).isEqualTo("Address Record is Deleted Successfully");
+	        assertThat(addressservice.deleteAddress(address1.getId())).isEqualTo("Record is deleted successfully");
 		}
 		
 		

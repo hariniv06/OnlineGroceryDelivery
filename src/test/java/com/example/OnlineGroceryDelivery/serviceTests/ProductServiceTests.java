@@ -125,7 +125,7 @@ public class ProductServiceTests {
 		public void givenIdToDeleteThenShouldDeleteProductsOfThatId() {
 			when(productrepository.findById(product1.getProductId())).thenReturn(Optional.ofNullable(product1));
 			
-	        assertThat(productsService.deleteProduct(product1.getProductId())).isEqualTo(" Product Record is Deleted Successfully");
+	        assertThat(productsService.deleteProduct(product1.getProductId())).isEqualTo("Record is Deleted Successfully");
 		}
 		
 		

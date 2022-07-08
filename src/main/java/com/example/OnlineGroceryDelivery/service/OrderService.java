@@ -1,6 +1,7 @@
 package com.example.OnlineGroceryDelivery.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.example.OnlineGroceryDelivery.entity.Order;
 
@@ -24,4 +25,6 @@ public interface OrderService {
 
 	List<Order> getOrderByStatus(String status);
 
-	}
+	Map<Object, Object> getOrderGroupByStatus();
+
+}

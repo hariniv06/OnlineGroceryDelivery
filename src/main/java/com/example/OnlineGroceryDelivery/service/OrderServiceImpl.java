@@ -1,6 +1,8 @@
 package com.example.OnlineGroceryDelivery.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -125,6 +127,21 @@ public class OrderServiceImpl implements OrderService {
 		// TODO Auto-generated method stub
 		return orderrepository.getOrderByStatus(status);
 	}
+
+	@Override
+	public Map<Object, Object> getOrderGroupByStatus() {
+		// TODO Auto-generated method stub
+
+		List<Object[]> objects =  orderrepository.getOrderGroupByStatus();
+		
+		Map<Object, Object> map = new HashMap<>();
+		
+		for(Object[] obj : objects) {
+			map.put(obj[0], obj[1]);
+		}
+		return map;
+	}
+
 }
 	
 		

@@ -1,6 +1,7 @@
 package com.example.OnlineGroceryDelivery.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -83,4 +84,9 @@ public class OrderController {
 		return orderservice.getOrderByStatus(status);
 		
 }
-}
+	@GetMapping("/GetOrderGroupByStatus")
+	public ResponseEntity<Map<Object , Object>> getOrderGroupByStatus() {
+		return new ResponseEntity<Map<Object , Object>>(orderservice.getOrderGroupByStatus(), HttpStatus.OK);
+	}
+	}
+

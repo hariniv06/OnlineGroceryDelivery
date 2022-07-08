@@ -1,6 +1,7 @@
 package com.example.OnlineGroceryDelivery.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -77,5 +78,9 @@ public class ProductController {
 	@GetMapping("/GetByProductPrice/{productPrice}")
 	public Product getProductByProductPrice(@PathVariable("productPrice")long productPrice) {
 		return productservice.getProductByProductPrice(productPrice);
-	}		
-}
+	}
+	@GetMapping("/GetProductGroupByProductCategory")
+	public ResponseEntity<Map<Object , Object>> getProductGroupByProductCategory() {
+		return new ResponseEntity<Map<Object , Object>>(productservice.getProductGroupByProductCategory(), HttpStatus.OK);
+	}
+	}

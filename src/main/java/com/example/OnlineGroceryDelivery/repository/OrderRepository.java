@@ -26,6 +26,9 @@ public interface OrderRepository extends JpaRepository<Order,Long> {
 
 	@Query("select o from Order o where o.status =:status")
       List<Order> getOrderByStatus(@Param("status")String status);
+	
+	 @Query ("select o.status , count(o.id) from Order o group by o.status")
+	List<Object[]> getOrderGroupByStatus();
 
 	
 	

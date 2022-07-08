@@ -38,6 +38,14 @@ import com.example.OnlineGroceryDelivery.entity.Customer;
  	    Optional<Customer> findByAadharNumber(long aadharNumber);
 
 
+ 	   @Query ("select c.customerName , count(c.id) from CustomerTbl c group by c.customerName")
+		List<Object[]> getCustomerGroupByCustomerName();
+
+
+ 	 
+		
+
+
 
 	
 
