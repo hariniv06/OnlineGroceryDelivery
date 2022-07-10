@@ -23,7 +23,7 @@ public interface CustomerService {
 
 	List<Customer> getCustomerByEmail(String email);
 
-	Customer getCustomerByAadharNumber(long aadharNumber);
+	Customer getCustomerByAadharNumber(String aadharNumber);
 
 	Map<Object, Object> getCustomerGroupByCustomerName();
 

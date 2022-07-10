@@ -76,7 +76,7 @@ public class CustomerController {
 }
 
 	@GetMapping("/GetByAadharNumber/{aadharNumber}")
-	public Customer getCustomerByAadharNumber(@PathVariable("aadharNumber")long aadharNumber) {
+	public Customer getCustomerByAadharNumber(@PathVariable("aadharNumber")String aadharNumber) {
 		return  customerservice.getCustomerByAadharNumber(aadharNumber);
 } 
 	@GetMapping("/GetCustomerGroupByCustomerName")

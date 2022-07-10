@@ -118,7 +118,7 @@ public class CustomerServiceImpl implements CustomerService{
 	}
 
 	@Override
-	public Customer getCustomerByAadharNumber(long aadharNumber) {
+	public Customer getCustomerByAadharNumber(String aadharNumber) {
 		// TODO Auto-generated method stub
 		Optional<Customer> customer=customerrepository.findByAadharNumber(aadharNumber);
 		if(customer.isPresent()) {

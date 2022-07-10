@@ -49,7 +49,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 	@Transient
 	private String country;
 	
-    @Range(min=1,max=6)
+   
 	private long pincode;
 	
 	@ManyToOne
